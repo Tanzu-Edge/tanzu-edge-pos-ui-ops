@@ -1,0 +1,89 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: pos-ui-config
+data:
+  SPRING_PROFILES_ACTIVE: pos-ui
+  POS_STOREID: store-10
+  POS_BACKEND: pos-sender
+  MANAGEMENT_METRICS_EXPORT_WAVEFRONT_URI: proxy://wavefront-proxy-tanzu.tanzu-observability-saas:2878
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pos-ui
+spec:
+  selector:
+    matchLabels:
+      app: pos-ui
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: pos-ui
+    spec:
+      containers:
+      - name: ui
+        image: harbor.edge-10.customer0.io/tbs-tanzu-pos-ui/pos-ui@sha256:359547a23360c14155bab7cd251f9aae9f2bb3a2852dce3bcb779a08018cfc77
+        ports:
+        - containerPort: 8080
+          name: server
+        - containerPort: 8081
+          name: management
+        envFrom:
+        - configMapRef:
+            name: pos-ui-config
+      imagePullSecrets:
+      - name: harbor-regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pos-ui-service
+spec:
+  ports:
+  - port: 8090
+    targetPort: 8080
+    name: http
+  - port: 8091
+    targetPort: 8081
+    name: management
+  selector:
+    app: pos-ui
+  type: ClusterIP
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: pos-ui-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    tls:
+      mode: PASSTHROUGH
+    hosts:
+    - pos-ui.services.edge.wrightcode.io
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: pos-ui-service
+spec:
+  hosts:
+  - pos-ui.services.edge.wrightcode.io
+  gateways:
+  - pos-ui-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: pos-ui-service
+        port:
+          number: 8090
