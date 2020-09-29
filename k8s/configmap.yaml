@@ -6,5 +6,5 @@ metadata:
 data:
   SPRING_PROFILES_ACTIVE: pos-ui
   POS_STOREID: #@ data.values.storeId
-  POS_BACKEND: #@ data.values.senderUri
+  POSBACKEND: #@ data.values.senderUri
   MANAGEMENT_METRICS_EXPORT_WAVEFRONT_URI: #@ data.values.wavefrontProxyUri

@@ -14,4 +14,4 @@ spec:
     tls:
       mode: PASSTHROUGH
     hosts:
-    - "pos-ui.services.edge.wrightcode.io"
+    - #@ data.values.posUri

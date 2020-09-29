@@ -5,7 +5,7 @@ metadata:
   name: pos-ui-service
 spec:
   hosts:
-  - "pos-ui.services.edge.wrightcode.io"
+  - #@ data.values.posUri
   gateways:
   - pos-ui-gateway
   http:
