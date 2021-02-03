@@ -1,0 +1,14 @@
+#@ load("@ytt:data", "data")
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: pos-ui
+spec:
+  virtualhost:
+    fqdn: #@ data.values.posUri
+  routes:
+  - services:
+    - name: pos-ui-service
+      port: 8090
+    conditions:
+      - prefix: /
