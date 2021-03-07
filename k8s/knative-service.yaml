@@ -1,0 +1,23 @@
+#@ load("@ytt:data", "data")
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: pos-ui
+spec:
+  template:
+    metadata:
+      annotations:
+        #! Target 10 in-flight-requests per pod.
+        autoscaling.knative.dev/target: "10"
+    spec:
+      containers:
+              - image: #@ data.values.image
+                ports:
+                - containerPort: 8080
+                env:
+                  - name: SPRING_PROFILES_ACTIVE
+                    value: #@ data.values.profile
+                  - name: MANAGEMENT_METRICS_EXPORT_WAVEFRONT_URI
+                    value: #@ data.values.wavefrontProxyUri
+                  - name: POS_STOREID
+                    value: #@ data.values.storeId
