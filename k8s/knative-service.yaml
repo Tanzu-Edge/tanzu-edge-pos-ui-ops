@@ -15,8 +15,6 @@ spec:
                 ports:
                 - containerPort: 8080
                 env:
-                  - name: SPRING_PROFILES_ACTIVE
-                    value: #@ data.values.profile
                   - name: MANAGEMENT_METRICS_EXPORT_WAVEFRONT_URI
                     value: #@ data.values.wavefrontProxyUri
                   - name: POS_STOREID
