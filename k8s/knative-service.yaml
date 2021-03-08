@@ -20,4 +20,4 @@ spec:
                   - name: POS_STOREID
                     value: #@ data.values.storeId
                   - name: SPRING_DATABASE_URL
-                    value: jdbc:sqlite::resource:database.sqlite
+                    value: 'jdbc:sqlite::resource:database.sqlite'
