@@ -19,5 +19,5 @@ spec:
                     value: #@ data.values.wavefrontProxyUri
                   - name: POS_STOREID
                     value: #@ data.values.storeId
-                  - name: SPRING_DATABASE_URL
+                  - name: SPRING_DATASOURCE_URL
                     value: 'jdbc:sqlite::resource:database.sqlite'
