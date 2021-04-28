@@ -21,3 +21,5 @@ spec:
                     value: #@ data.values.storeId
                   - name: SPRING_DATASOURCE_URL
                     value: 'jdbc:sqlite::resource:database.sqlite'
+                  - name: POSBACKEND
+                    value: #@ data.values.posBackend 
