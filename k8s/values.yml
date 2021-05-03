@@ -5,5 +5,5 @@ senderUri: http://pos-backend/v1/api/checkout
 image: harbor.edge-mgmt.customer0.io/tas-apps/f0bba7ed-43e5-46c5-aeb6-858a4e1f83e0:latest
 ingressDomain: site-0.storm.pvd.pez.pivotal.io
 posUri: pos.site.storm.pvd.pez.pivotal.io
-posBackend: http://pos-sender-service:8090/v1/api/checkout
+posBackend: http://pos-sbackend/v1/api/checkout
 wavefrontProxyUri: proxy://wavefront-proxy-tanzu.tanzu-observability-saas:2878
