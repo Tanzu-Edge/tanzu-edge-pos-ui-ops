@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: ui
-        image: harbor.edge-10.customer0.io/tbs-tanzu-pos-ui/pos-ui@sha256:359547a23360c14155bab7cd251f9aae9f2bb3a2852dce3bcb779a08018cfc77
+        image: harbor.services.edge.wrightcode.io/apps/tanzu-edge-pos-ui-default@sha256:bbfe6d4d3ebd638388866ece76878d12147325bfb428f074464e793a22c0447f
         ports:
         - containerPort: 8080
           name: server
